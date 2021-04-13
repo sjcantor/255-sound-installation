@@ -1,9 +1,9 @@
 import numpy as np
 # import cv2
-from cv2 import cv2 # fuck you VS code
+from cv2 import cv2
 import random
 
-# Playing Audio
+# Package for playing Audio
 import simpleaudio as sa
 
 # Capture video from camera
@@ -14,7 +14,7 @@ _, lastframe = cap.read()
 
 # Update lastframe every x frames
 BUFFER = 10
-# Frequencies
+# Frequencies to be sampled from
 FREQ_ARRAY = np.array([440, 466.16, 493.88, 523.25, 554.37, 587.33, 622.25, 659.25, 698.46, 739.99, 783.99, 830.61, 880.00])
 
 
@@ -50,6 +50,10 @@ def populate_note_array(intensity):
     return notes
 
 def play_notes(notes, sample_rate=44100, T=0.1):
+    """
+    Given an input array of sine waves, this function
+    generates buffer for the audio drivers to play.
+    """
 
     t = np.linspace(0, T, int(T * sample_rate), False)
 
@@ -91,6 +95,9 @@ def downsample(input_arr):
     pass
 
 
+# ---- MAIN LOOP ------
+# Keeps observng new frames of video and calculating the change in color.
+# Uses algorithms above to generate notes and audio.
 
 frame_count = 0
 
